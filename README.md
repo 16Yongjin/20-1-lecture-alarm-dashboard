@@ -18,3 +18,12 @@
 ## 스크린샷
 
 ![Screenshot_2020-03-19 Lecure Alarm Dashboard](https://user-images.githubusercontent.com/22253556/77064355-b1a47980-6a22-11ea-8696-238b8e949667.png)
+
+## 기술 스택
+
+- Svelte
+- Chart.js
+- Axios
+- Moment
+
+CSS 라이브러리 없이 레이아웃은 Flex와 Grid로 잡고 필요한 건 직접 작성했다.
