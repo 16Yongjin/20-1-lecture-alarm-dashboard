@@ -49,3 +49,8 @@ body {
 		font-size: 1.7rem;
 	}
 }
+
+.mh-2 {
+	margin-right: 0.5rem;
+	margin-left: 0.5rem;
+}

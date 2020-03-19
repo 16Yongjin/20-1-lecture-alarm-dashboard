@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
 	import chart from "chart.js";
   import { courseIdToName } from '../../data/courses.js'
-  import { rgbaFromString } from '../../utils/helpers.js'
+	import { rgbaFromString, delay } from '../../utils/helpers.js'
 	
 	export let courseRank;
 	let courseRankChart;
@@ -15,7 +15,9 @@
 		courseRankChart.update()
 	)
 
-  onMount(() => {
+  onMount(async () => {
+    await delay(100);
+		
 		const courseRankCtx = document.getElementById("course-rank");
     courseRankChart = new Chart(courseRankCtx, {
       type: "doughnut",
@@ -23,16 +25,15 @@
         datasets: [{
           label: "학과 비율",
 					data: courseRank.map(i => i[1]),
-					backgroundColor: courseRank.map(() => getRandomRgb())
+					backgroundColor: courseRank.map(([courseId]) => rgbaFromString(courseId))
 				}],
 				labels: courseRank.map(i => courseIdToName[i[0]]),
 			},
 			options: {
+				responsive: true,
 				maintainAspectRatio: false
-			}
+			},
 		});
-		
-		
   });
 </script>
 

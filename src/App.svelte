@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
-  import API from './utils/serverApi.js';
+  import axios from "axios";
+  import { serverUrl } from './store'
   import { rank, groupBy, rankGroup } from './utils/helpers.js';
   import Header from "./components/Header.svelte";
   import Footer from "./components/Footer.svelte";
@@ -28,8 +29,16 @@
   let completedAlarm = [];
   let completedAlarmCount = 0;
 
+  $: $serverUrl, update();
+
+  const getData = () =>
+    axios.get(`${$serverUrl}/admin/dashboardData`).then(res => {
+      const { users, alarms, completedAlarms } = res.data;
+      return [users, alarms, completedAlarms.split("\n")];
+    });
+
   const update = async () => {
-    [users, alarms, completedAlarm] = await Promise.all([API.getUsers(), API.getAlarms(), API.getCompletedAlarms()]);
+    [users, alarms, completedAlarm] = await getData();
 
     userCount = users.length;
     alarmsPerUser = users.map(u => u.lectures.length).reduce((acc, v) => (acc[v]++, acc) , [0,0,0,0,0,0,0])
@@ -38,11 +47,14 @@
     courseRank = rank(alarms.map(a => a.courseId));
     courseCount = courseRank.length;
     completedAlarmCount = completedAlarm.length;
+  }
 
+  const updateLoop = async () => {
+    await update();
     setTimeout(update, 3000);
   }
 
-  onMount(update)
+  onMount(updateLoop)
 </script>
 
 <Header />
@@ -77,11 +89,9 @@
 </main>
 
 <style>
-
   .title {
     margin: 0.5rem 2rem;
     font-size: 2rem;
-
   }
   .grid-container {
     padding: 1rem;

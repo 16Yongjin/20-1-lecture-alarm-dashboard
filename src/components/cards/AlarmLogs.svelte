@@ -1,6 +1,11 @@
+<script>
+  import { serverUrl } from '../../store'
+  console.log($serverUrl)
+</script>
+
 <div class="card alarm-logs">
   <div class="card-title">빈자리 확인기 로그</div>
-  <iframe id="alarm-log" src="https://api.lecture.hufs.app/admin/alarmLogViewer" title="빈자리 확인기 로그"></iframe>
+  <iframe id="alarm-log" src={`${$serverUrl}/admin/alarmLogViewer`} title="빈자리 확인기 로그"></iframe>
 </div>
 
 <style>

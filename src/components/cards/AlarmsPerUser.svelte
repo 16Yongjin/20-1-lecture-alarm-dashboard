@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import chart from "chart.js";
+  import { delay } from './../../utils/helpers.js'
 
   export let alarmsPerUser;
 
@@ -12,7 +13,9 @@
   )
 
 
-  onMount(() => {
+  onMount(async () => {
+    await delay(100);
+
     const alarmsPerUserCtx = document.getElementById("alarms-per-user");
     alarmsPerUserChart = new Chart(alarmsPerUserCtx, {
       type: "bar",
@@ -47,6 +50,7 @@
         ]
       },
       options: {
+        responsive: true,
         maintainAspectRatio: false
       }
     });

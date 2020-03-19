@@ -13,15 +13,7 @@ export const rankGroup = arr => {
     .sort(([v1], [v2] ) => v2 - v1)
 }
 
-export const getRandomRgb = () => {
-  const num = Math.round(0xffffff * Math.random());
-  const r = num >> 16;
-  const g = num >> 8 & 255;
-  const b = num & 255;
-  return `rgba(${r}, ${g}, ${b}, 0.3)`;
-}
-
-function hashCode(str) { // java String#hashCode
+function hashCode(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
      hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -38,3 +30,5 @@ function intToRGB(i){
 }
 
 export const rgbaFromString = (str) => `#${intToRGB(hashCode(str))}60`
+
+export const delay = n => new Promise(r => setTimeout(r, n));

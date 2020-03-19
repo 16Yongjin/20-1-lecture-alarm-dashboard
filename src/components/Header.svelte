@@ -1,3 +1,7 @@
+<script>
+  import ServerSelect from './ServerSelect.svelte'
+</script>
+
 <header class="header">
   <span class="logo mh-2">
     <img src="logo.png" alt="로고" /> 
@@ -6,13 +10,24 @@
   <span class="title">
     <h2>수강신청 빈자리 알람 대시보드</h2>
   </span>
+
+  <span class="spacer"></span>
+
+  <ServerSelect />
 </header>
+
+<div class="header-offset"></div>
 
 <style>
   .header {
+    position: fixed;
     height: 72px;
+    width: 100%;
     display: flex;
     border-bottom: 1px solid #ddd;
+    background: white;
+    top: 0;
+    left: 0;
   }
   
   .logo {
@@ -25,15 +40,18 @@
     width: 48px;
   }
 
+  .spacer {
+    flex-grow: 1;
+  }
+
   .title {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .mh-2 {
-    margin-right: 0.5rem;
-    margin-left: 0.5rem;
+  .header-offset {
+    margin-bottom: 72px;
   }
 
   @media (max-width: 618px) {
