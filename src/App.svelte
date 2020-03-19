@@ -51,7 +51,7 @@
 
   const updateLoop = async () => {
     await update();
-    setTimeout(update, 3000);
+    setTimeout(updateLoop, 3000);
   }
 
   onMount(updateLoop)
