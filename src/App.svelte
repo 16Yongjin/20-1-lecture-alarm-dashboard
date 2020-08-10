@@ -1,8 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import axios from "axios";
-  import { serverUrl } from './store'
-  import { rank, groupBy, rankGroup } from './utils/helpers.js';
+  import { serverUrl, token } from "./store";
+  import { rank, groupBy, rankGroup } from "./utils/helpers.js";
   import Header from "./components/Header.svelte";
   import Footer from "./components/Footer.svelte";
   import UserCount from "./components/cards/UserCount.svelte";
@@ -25,68 +25,57 @@
   let lectureRank = [];
   let courseRank = [];
   let courseCount = 0;
-  let alarmsPerUser = [0,0,0,0,0,0,0];
+  let alarmsPerUser = [0, 0, 0, 0, 0, 0, 0];
   let completedAlarm = [];
   let completedAlarmCount = 0;
 
   $: $serverUrl, update();
 
   const getData = () =>
-    axios.get(`${$serverUrl}/admin/dashboardData`).then(res => {
-      const { users, alarms, completedAlarms } = res.data;
-      return [users, alarms, completedAlarms.split("\n")];
+    axios
+      .get(`${$serverUrl}/v1/admin/dashboardData`, {
+        headers: { Authorization: `Bearer ${$token}` },
+      })
+      .then((res) => {
+        const { users, alarms, completedAlarms } = res.data;
+        return [users, alarms, completedAlarms.split("\n")];
+      });
+
+  const setAuthToken = async () => {
+    const id = prompt("아이디");
+    const password = prompt("비밀번호");
+
+    const res = await axios.post(`${$serverUrl}/v1/auth/admin`, {
+      id,
+      password,
     });
+
+    return token.set(res.data);
+  };
 
   const update = async () => {
     [users, alarms, completedAlarm] = await getData();
 
     userCount = users.length;
-    alarmsPerUser = users.map(u => u.lectures.length).reduce((acc, v) => (acc[v]++, acc) , [0,0,0,0,0,0,0])
+    alarmsPerUser = users
+      .map((u) => u.lectures.length)
+      .reduce((acc, v) => (acc[v]++, acc), [0, 0, 0, 0, 0, 0, 0]);
     alarmCount = alarms.length;
-    lectureRank = rankGroup(alarms.map(a => a.name));
-    courseRank = rank(alarms.map(a => a.courseId));
+    lectureRank = rankGroup(alarms.map((a) => a.name));
+    courseRank = rank(alarms.map((a) => a.courseId));
     courseCount = courseRank.length;
     completedAlarmCount = completedAlarm.length;
-  }
+  };
 
   const updateLoop = async () => {
+    if (!$token) await setAuthToken();
+
     await update();
     setTimeout(updateLoop, 3000);
-  }
+  };
 
-  onMount(updateLoop)
+  onMount(updateLoop);
 </script>
-
-<Header />
-
-
-<h2 class="title">Insight</h2>
-
-<main class="grid-container first">
-  <UserCount {userCount} />
-
-  <AlarmCount {alarmCount} />
-
-  <CourseCount {courseCount} />
-
-  <CompletedAlarmCount {completedAlarmCount} />
-
-  <CheckRunning />
-
-  <AlarmsPerUser {alarmsPerUser} />
-
-  <LectureRank {lectureRank} />
-
-  <CourseRank {courseRank} />
-</main>
-
-<h2 class="title">Server</h2>
-
-<main class="grid-container second">
-  <Logs />
-  <AlarmLogs />
-  <ServerStatus />
-</main>
 
 <style>
   .title {
@@ -140,3 +129,35 @@
     }
   }
 </style>
+
+<Header />
+
+{#if $token}
+  <h2 class="title">Insight</h2>
+
+  <main class="grid-container first">
+    <UserCount {userCount} />
+
+    <AlarmCount {alarmCount} />
+
+    <CourseCount {courseCount} />
+
+    <CompletedAlarmCount {completedAlarmCount} />
+
+    <CheckRunning />
+
+    <AlarmsPerUser {alarmsPerUser} />
+
+    <LectureRank {lectureRank} />
+
+    <CourseRank {courseRank} />
+  </main>
+
+  <h2 class="title">Server</h2>
+
+  <main class="grid-container second">
+    <Logs />
+    <AlarmLogs />
+    <ServerStatus />
+  </main>
+{/if}

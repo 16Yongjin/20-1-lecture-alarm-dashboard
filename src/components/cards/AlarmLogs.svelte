@@ -1,18 +1,13 @@
 <script>
-  import { serverUrl } from '../../store'
-  console.log($serverUrl)
+  import { serverUrl } from "../../store";
+  console.log($serverUrl);
 </script>
-
-<div class="card alarm-logs">
-  <div class="card-title">빈자리 확인기 로그</div>
-  <iframe id="alarm-log" src={`${$serverUrl}/admin/alarmLogViewer`} title="빈자리 확인기 로그"></iframe>
-</div>
 
 <style>
   .alarm-logs {
     grid-area: alarm-logs;
   }
-  
+
   #alarm-log {
     margin: 0;
     padding: 0;
@@ -21,3 +16,11 @@
     border: none;
   }
 </style>
+
+<div class="card alarm-logs">
+  <div class="card-title">빈자리 확인기 로그</div>
+  <iframe
+    id="alarm-log"
+    src={`${$serverUrl}/v1/admin/alarmLogViewer`}
+    title="빈자리 확인기 로그" />
+</div>

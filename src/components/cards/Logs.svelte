@@ -1,11 +1,6 @@
 <script>
-  import { serverUrl } from '../../store'
+  import { serverUrl } from "../../store";
 </script>
-
-<div class="card logs">
-  <div class="card-title">서버 로그</div>
-  <iframe id="log-view" src={`${$serverUrl}/admin/logViewer`} title="서버 로그"></iframe>
-</div>
 
 <style>
   .logs {
@@ -20,3 +15,11 @@
     border: none;
   }
 </style>
+
+<div class="card logs">
+  <div class="card-title">서버 로그</div>
+  <iframe
+    id="log-view"
+    src={`${$serverUrl}/v1/admin/logViewer`}
+    title="서버 로그" />
+</div>

@@ -1,22 +1,6 @@
 <script>
-  import ServerSelect from './ServerSelect.svelte'
+  import ServerSelect from "./ServerSelect.svelte";
 </script>
-
-<header class="header">
-  <span class="logo mh-2">
-    <img src="logo.png" alt="로고" /> 
-  </span>
-
-  <span class="title">
-    <h2>수강신청 빈자리 알람 대시보드</h2>
-  </span>
-
-  <span class="spacer"></span>
-
-  <ServerSelect />
-</header>
-
-<div class="header-offset"></div>
 
 <style>
   .header {
@@ -29,7 +13,7 @@
     top: 0;
     left: 0;
   }
-  
+
   .logo {
     display: flex;
     align-items: center;
@@ -62,6 +46,21 @@
     .title {
       font-size: 0.8rem;
     }
-	}
-
+  }
 </style>
+
+<header class="header">
+  <span class="logo mh-2">
+    <img src="logo.png" alt="로고" />
+  </span>
+
+  <span class="title">
+    <h2>수강신청 빈자리 알람 대시보드</h2>
+  </span>
+
+  <span class="spacer" />
+
+  <ServerSelect />
+</header>
+
+<div class="header-offset" />

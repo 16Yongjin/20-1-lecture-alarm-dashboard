@@ -1,7 +1,3 @@
-<footer class="footer">
-  yj
-</footer>
-
 <style>
   .footer {
     height: 32px;
@@ -11,3 +7,5 @@
     justify-content: center;
   }
 </style>
+
+<footer class="footer">yj</footer>

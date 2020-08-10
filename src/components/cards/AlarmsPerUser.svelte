@@ -1,17 +1,16 @@
 <script>
   import { onMount } from "svelte";
   import chart from "chart.js";
-  import { delay } from './../../utils/helpers.js'
+  import { delay } from "./../../utils/helpers.js";
 
   export let alarmsPerUser;
 
   let alarmsPerUserChart;
 
-  $: alarmsPerUser && alarmsPerUserChart && (
-    alarmsPerUserChart.data.datasets[0].data = alarmsPerUser,
-    alarmsPerUserChart.update()
-  )
-
+  $: alarmsPerUser &&
+    alarmsPerUserChart &&
+    ((alarmsPerUserChart.data.datasets[0].data = alarmsPerUser),
+    alarmsPerUserChart.update());
 
   onMount(async () => {
     await delay(100);
@@ -45,22 +44,17 @@
               "rgba(255, 99, 132, 1)",
               "rgba(54, 162, 235, 1)",
             ],
-            borderWidth: 1
-          }
-        ]
+            borderWidth: 1,
+          },
+        ],
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false
-      }
+        maintainAspectRatio: false,
+      },
     });
   });
 </script>
-
-<div class="card alarms-per-user">
-  <div class="card-title">유저 당 알람수</div>
-  <canvas id="alarms-per-user" />
-</div>
 
 <style>
   .alarms-per-user {
@@ -71,3 +65,8 @@
     max-height: 320px;
   }
 </style>
+
+<div class="card alarms-per-user">
+  <div class="card-title">유저 당 알람수</div>
+  <canvas id="alarms-per-user" />
+</div>

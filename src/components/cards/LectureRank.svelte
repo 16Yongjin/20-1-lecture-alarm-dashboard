@@ -2,18 +2,6 @@
   export let lectureRank;
 </script>
 
-<div class="card lecture-rank">
-  <div class="card-title">많이 등록된 강의</div>
-  <div class="card-content">
-    {#each lectureRank as countAndLectures, index}
-      <li><b>{index + 1}위 ({countAndLectures[0]}개)</b></li>
-      {#each countAndLectures[1] as lectureName }
-        <ul>{lectureName}</ul>
-      {/each}
-    {/each}
-  </div>
-</div>
-
 <style>
   .lecture-rank {
     grid-area: lecture-rank;
@@ -31,7 +19,19 @@
     .card-content {
       max-height: 150px;
     }
-
   }
-
 </style>
+
+<div class="card lecture-rank">
+  <div class="card-title">많이 등록된 강의</div>
+  <div class="card-content">
+    {#each lectureRank as countAndLectures, index}
+      <li>
+        <b>{index + 1}위 ({countAndLectures[0]}개)</b>
+      </li>
+      {#each countAndLectures[1] as lectureName}
+        <ul>{lectureName}</ul>
+      {/each}
+    {/each}
+  </div>
+</div>
