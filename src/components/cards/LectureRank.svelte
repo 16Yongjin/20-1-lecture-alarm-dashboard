@@ -27,7 +27,9 @@
   <div class="card-content">
     {#each lectureRank as countAndLectures, index}
       <li>
-        <b>{index + 1}위 ({countAndLectures[0]}개)</b>
+        <b>
+          {index + 1}위 ({countAndLectures[0]}개씩 / {countAndLectures[1].length}개)
+        </b>
       </li>
       {#each countAndLectures[1] as lectureName}
         <ul>{lectureName}</ul>

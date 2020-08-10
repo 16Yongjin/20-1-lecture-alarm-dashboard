@@ -25,7 +25,7 @@
   let lectureRank = [];
   let courseRank = [];
   let courseCount = 0;
-  let alarmsPerUser = [0, 0, 0, 0, 0, 0, 0];
+  let alarmsPerUser = Array(21).fill(0);
   let completedAlarm = [];
   let completedAlarmCount = 0;
 
@@ -59,7 +59,7 @@
     userCount = users.length;
     alarmsPerUser = users
       .map((u) => u.lectures.length)
-      .reduce((acc, v) => (acc[v]++, acc), [0, 0, 0, 0, 0, 0, 0]);
+      .reduce((acc, v) => (acc[v]++, acc), Array(21).fill(0));
     alarmCount = alarms.length;
     lectureRank = rankGroup(alarms.map((a) => a.name));
     courseRank = rank(alarms.map((a) => a.courseId));
