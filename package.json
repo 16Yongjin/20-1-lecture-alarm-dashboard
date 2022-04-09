@@ -19,7 +19,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "sirv-cli": "^0.4.4"
   }
 }
